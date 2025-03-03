@@ -56,25 +56,89 @@
 // });
 
 // nested fetch
-fetch('https://swapi.co/api/planets/').then((response) => {
+// fetch('https://swapi.co/api/planets/').then((response) => {
+//   if (!response.ok)
+//     throw new Error(`Status Code Error: ${response.status}`);
+
+//   return response.json()
+// })
+// .then((data) => {
+//   const filmURL = data.results[0].films[0];
+//   return fetch(filmURL);
+// })
+// .then((response) => {
+//   if (!response.ok)
+//     throw new Error(`Status Code Error: ${response.status}`);
+
+//   return response.json()
+// })
+// .then((data) => {
+//   console.log('FETCHED FIRST FILM, based off of the first planet');
+//   console.log(data.title);
+// })
+// .catch((err) => {
+//   console.log('SOMETHING WENT WRONG');
+//   console.log(err);
+// });
+
+
+// same code as above but getting the next set of planets from the link to the second page
+// fetch('https://swapi.co/api/planets/').then((response) => {
+//   if (!response.ok)
+//     throw new Error(`Status Code Error: ${response.status}`);
+
+//   return response.json()
+// })
+// .then((data) => {
+//   console.log('FETCHED ALL PLANETS (first 10');
+//   for(let planet of data.results) {
+//     console.log(planet.name);
+//   }
+//   const nextURL = data.next
+//   return fetch(nextURL);
+// })
+// .then((response) => {
+//   if (!response.ok)
+//     throw new Error(`Status Code Error: ${response.status}`);
+
+//   return response.json()
+// })
+// .then((data) => {
+//   console.log('Fectched Next 10 planets');
+//   for(let planet of data.results) {
+//     console.log(planet.name);
+//   }
+// })
+// .catch((err) => {
+//   console.log('SOMETHING WENT WRONG');
+//   console.log(err);
+// });
+
+
+// same code as above but refactored
+const checkStatusAndParse = (response) => {
   if (!response.ok)
     throw new Error(`Status Code Error: ${response.status}`);
 
   return response.json()
-})
-.then((data) => {
-  const filmURL = data.results[0].films[0];
-  return fetch(filmURL);
-})
-.then((response) => {
-  if (!response.ok)
-    throw new Error(`Status Code Error: ${response.status}`);
+};
 
-  return response.json()
-})
+fetch('https://swapi.co/api/planets/')
+.then(checkStatusAndParse)
 .then((data) => {
-  console.log('FETCHED FIRST FILM, based off of the first planet');
-  console.log(data.title);
+  console.log('FETCHED ALL PLANETS (first 10');
+  for(let planet of data.results) {
+    console.log(planet.name);
+  }
+  const nextURL = data.next
+  return fetch(nextURL);
+})
+.then(checkStatusAndParse)
+.then((data) => {
+  console.log('Fectched Next 10 planets');
+  for(let planet of data.results) {
+    console.log(planet.name);
+  }
 })
 .catch((err) => {
   console.log('SOMETHING WENT WRONG');
