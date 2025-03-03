@@ -123,23 +123,24 @@ const checkStatusAndParse = (response) => {
   return response.json()
 };
 
-fetch('https://swapi.co/api/planets/')
-.then(checkStatusAndParse)
-.then((data) => {
-  console.log('FETCHED ALL PLANETS (first 10');
+const printPlanets = (data) => {
+  console.log('Loaded 10 more planets');
   for(let planet of data.results) {
     console.log(planet.name);
   }
-  const nextURL = data.next
-  return fetch(nextURL);
-})
+  return Promise.resolve(data.next);
+}
+
+const fetchNextPlanets = (url = 'https://swapi.co/api/planets/') => {
+  return fetch(url);
+}
+
+fetch()
 .then(checkStatusAndParse)
-.then((data) => {
-  console.log('Fectched Next 10 planets');
-  for(let planet of data.results) {
-    console.log(planet.name);
-  }
-})
+.then(printPlanets)
+.then(fetchNextPlanets)
+.then(checkStatusAndParse)
+.then(printPlanets)
 .catch((err) => {
   console.log('SOMETHING WENT WRONG');
   console.log(err);
