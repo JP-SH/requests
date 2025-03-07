@@ -122,7 +122,20 @@ async function get3Pokemon() {
 	console.log(poke3.data);
 }
 
-get3Pokemon();
+// a refactored wait to write the above code
+async function get3Pokemon() {
+	const prom1 = axios.get('https://pokeapi.co/api/v2/pokemon/1');
+	const prom2 = axios.get('https://pokeapi.co/api/v2/pokemon/2');
+	const prom3 = axios.get('https://pokeapi.co/api/v2/pokemon/3');
+	const results = Promise.all([prom1, prom2, prom3]);
+  printPokemon(results);
+}
+
+function printPokemon(results) {
+  for (let pokemon of results) {
+    console.log(pokemon.data.name);
+  }
+}
 
 // *******************************************
 // A better demonstration of the difference...
