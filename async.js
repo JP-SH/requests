@@ -1,37 +1,37 @@
-// function add(x,y) {
-//   return new Promise((resolve, reject) => {
-//     if(typeof x !== 'number' || typeof y !== 'number') {
-//       reject('X and Y must be numbers');
-//     } else {
-//       resolve(x + y);
-//     }
-//   })
-// }
+function add(x,y) {
+  return new Promise((resolve, reject) => {
+    if(typeof x !== 'number' || typeof y !== 'number') {
+      reject('X and Y must be numbers');
+    } else {
+      resolve(x + y);
+    }
+  })
+}
 
-// how to write the same code as above with asynch
-// async function add(x,y) {
-//   if(typeof x !== 'number' || typeof y !== 'number') {
-//     throw 'X and Y must be numbers!';
-//   }
-//   return s + y;
-// }
+how to write the same code as above with asynch
+async function add(x,y) {
+  if(typeof x !== 'number' || typeof y !== 'number') {
+    throw 'X and Y must be numbers!';
+  }
+  return s + y;
+}
 
-// add(5, 4)
-// .then((res) => {
-//   console.log('Answer is:', res);
-// })
-// .catch((err) => {
-//   console.log('Rejected because:', err);
-// })
+add(5, 4)
+.then((res) => {
+  console.log('Answer is:', res);
+})
+.catch((err) => {
+  console.log('Rejected because:', err);
+})
 
-// await
-// function getPlanets() {
-//   return axios.get('https://swapi.co/api/planets/');
-// }
+await
+function getPlanets() {
+  return axios.get('https://swapi.co/api/planets/');
+}
 
-// getPlanets().then((res) => {
-//   console.log(res.data);
-// })
+getPlanets().then((res) => {
+  console.log(res.data);
+})
 
 // rather than having to write a then for when the promise is resolved 'await' makes javascript wait untill the promise is resolved and then moves onto the next line. It bascially replaces '.then'.
   // also 'await' only works in async functions
